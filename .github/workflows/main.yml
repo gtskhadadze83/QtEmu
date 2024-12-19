@@ -1,0 +1,61 @@
+name: Build
+on:
+  push: # Run on push
+  pull_request: # Run on pull-request
+jobs:
+  #
+  # Windows build
+  #
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      #
+      # Checkout the repository
+      #
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      #
+      # Configure MSVC
+      #
+      - name: Configure MSVC
+        uses: ilammy/msvc-dev-cmd@v1.9.0
+        with:
+          arch: x64
+          spectre: true
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v4.1.1
+        with:
+          cache: true
+          version: '6.5.0'
+          host: 'windows'
+          target: 'desktop'
+          arch: 'win64_msvc2022_64'
+          install-deps: 'true'
+          setup-python: 'true'
+          tools: 'tools_qtcreator,qt.tools.qtcreator'
+          set-env: 'true'
+      - uses: actions/setup-python@v5.3.0
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: python -m pip install meson==1.6.1 ninja
+      - name: Build Project
+        uses: threeal/cmake-action@v2.1.0
+        with:
+          generator: Ninja
+          options: |
+            CMAKE_BUILD_TYPE=Release
+      - name: Deploy
+        run: |
+          mkdir deploy
+          cd deploy
+          cp ../build/QtEmu.exe .
+          windeployqt --release QtEmu.exe
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: QtEmu
+          path: deploy/
