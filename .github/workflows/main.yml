@@ -30,13 +30,7 @@ jobs:
         with:
           cache: true
           version: '6.5.0'
-          host: 'windows'
-          target: 'desktop'
           arch: 'win64_msvc2022_64'
-          install-deps: 'true'
-          setup-python: 'true'
-          tools: 'tools_qtcreator,qt.tools.qtcreator'
-          set-env: 'true'
       - uses: actions/setup-python@v5.3.0
         with:
           python-version: '3.12'
