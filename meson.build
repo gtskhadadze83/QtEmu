@@ -2,8 +2,8 @@
 
 project('QtEmu', 'cpp', default_options : ['cpp_std=c++14', 'warning_level=3'], version: '2.1.1')
 
-qt5 = import('qt6')
-qt5dep = dependency('qt6', modules : ['Core', 'Gui', 'Widgets', 'Network', 'Svg'])
+qt6 = import('qt6')
+qt6dep = dependency('qt6', modules : ['Core', 'Gui', 'Widgets', 'Network', 'Svg'])
 
 incdir = include_directories('src')
 
