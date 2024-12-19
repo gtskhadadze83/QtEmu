@@ -7,7 +7,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_AUTORCC ON)
 # Left for easy setup on new device, but it shouldn't be added to Cmake
-#set(CMAKE_PREFIX_PATH "C:\\Qt\\6.4.0\\mingw_64")
+#set(CMAKE_PREFIX_PATH "C:\\Qt\\6.5.0\\mingw_64")
 
 find_package(Qt6 REQUIRED COMPONENTS
         Core
